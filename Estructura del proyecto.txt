@@ -1,0 +1,64 @@
+﻿1)
+Estructura del proyecto:
+Data
+Data\Interfaces
+DTOs
+Helpers
+Mapper
+Services
+Services\Interfaces
+
+2)Agregar Modelos
+
+3)Agregar paquetes nugets:
+	Microsoft.EntityFrameworkCore
+	Microsoft.EntityFrameworkCore.Sqlite
+	Microsoft.EntityFrameworkCore.Design
+	con: dotnet add package
+
+4)Crear la clase DataContext en la carpeta Data, con su constructor vacío.
+
+5) Agregar cadena de conexión
+	"ConnectionStrings": { "DefaultConnection": Data Source = MiPrimerAPICRUD.db }
+
+6) Agregar el DBContext a la configuración de la clase startup:
+
+	Agregar LazyLoad
+	dotnet add package Microsoft.EntityFrameworkCore.Proxies
+
+	services.AddDbContext<DataContext>(x =>
+            {
+                x.UseLazyLoadingProxies();
+                x.UseSqlite = (Configuration.GetConnectionString("DefaultConnection"));
+            }
+            );
+
+7) Instalar EF:
+	dotnet tool install --global dotnet-ef
+   
+   Si ya está instalada:
+    dotnet tool update --global dotnet-ef
+
+8)
+	Migraciones de modelos a BD
+
+	dotnet ef migrations add Initialcreate (Crea las clase Initialcreate en la carpeta Migrations con las sentencias que 
+											que debe hacer en la BD)
+	dotnet ef database update	(ejecuta la accion de la migración creada anteriormente)
+
+9)  Descargar visor de BD Sqlite (DB Browser for SQlite)
+
+10) Ya vamos a crear la interface y clase Repositorio
+	Y creamos la DI en la clase startup, en ConfigureServices
+
+
+11) Creamos el controlador de cada entidad
+
+
+
+
+Comando para instalar los paquetes Nugget
+dotnet add package Microsoft.IdentityModel.Tokens
+dotnet add package System.IdentityModel.Tokens.Jwt
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
